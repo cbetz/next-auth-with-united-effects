@@ -50,16 +50,13 @@ export default NextAuth({
       name: "United Effects",
       wellKnown: `${process.env.UNITED_EFFECTS_ISSUER}/.well-known/openid-configuration`,
       type: "oauth",
-      authorization: { params: { scope: "openid email username profile", resource: process.env.UNITED_EFFECTS_ISSUER } },
+      authorization: { params: { scope: "openid email profile", resource: process.env.UNITED_EFFECTS_ISSUER } },
       checks: ["pkce", "state"],
       idToken: true,
       profile(profile, tokens) {
-        console.log("profile", profile);
-        console.log("tokens", tokens);
         return {
           id: profile.sub,
           email: profile.email,
-          username: profile.username,
         }
       },
       clientId: process.env.UNITED_EFFECTS_CLIENT_ID,
