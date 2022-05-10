@@ -52,7 +52,7 @@ export default NextAuth({
       type: "oauth",
       authorization: { params: { scope: "openid email username access profile" } },
       checks: ["pkce", "state"],
-      idToken: false,
+      idToken: true,
       profile(profile, tokens) {
         console.log("profile", profile);
         console.log("tokens", tokens);
@@ -64,6 +64,9 @@ export default NextAuth({
       },
       clientId: process.env.UNITED_EFFECTS_CLIENT_ID,
       clientSecret: process.env.UNITED_EFFECTS_CLIENT_SECRET,
+      userinfo: {
+        url: `${process.env.UNITED_EFFECTS_ISSUER}/me`,
+      }
     },
   ],
   theme: {
