@@ -53,8 +53,9 @@ export default NextAuth({
       authorization: { params: { scope: "openid email username access profile" } },
       checks: ["pkce", "state"],
       idToken: true,
-      profile(profile) {
+      profile(profile, tokens) {
         console.log("profile", profile);
+        console.log("tokens", tokens);
         return {
           id: profile.sub,
           email: profile.email,
