@@ -45,11 +45,23 @@ export default NextAuth({
       clientId: process.env.TWITTER_ID,
       clientSecret: process.env.TWITTER_SECRET,
     }),
-    Auth0Provider({
-      clientId: process.env.AUTH0_ID,
-      clientSecret: process.env.AUTH0_SECRET,
-      issuer: process.env.AUTH0_ISSUER,
-    }),
+    {
+      id: "united-effects",
+      name: "United Effects",
+      wellKnown: `${process.env.UNITED_EFFECTS_ISSUER}/.well-known/openid-configuration`,
+      type: "oauth",
+      authorization: { params: { scope: "openid email profile" } },
+      checks: ["pkce", "state"],
+      idToken: true,
+      profile(profile) {
+        return {
+          id: profile.sub,
+          email: profile.email,
+        }
+      },
+      clientId: process.env.UNITED_EFFECTS_CLIENT_ID,
+      clientSecret: process.env.UNITED_EFFECTS_CLIENT_SECRET,
+    },
   ],
   theme: {
     colorScheme: "light",
