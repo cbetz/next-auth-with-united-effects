@@ -53,7 +53,7 @@ export default NextAuth({
       authorization: { params: { scope: "openid email profile", resource: process.env.UNITED_EFFECTS_ISSUER } },
       checks: ["pkce", "state"],
       idToken: true,
-      profile(profile, tokens) {
+      profile(profile) {
         return {
           id: profile.sub,
           email: profile.email,
